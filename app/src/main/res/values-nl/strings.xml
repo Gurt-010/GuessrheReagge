@@ -1,0 +1,98 @@
+<resources>
+    <string name="app_name">Guessrhe Reagge</string>
+    <string name="app_logo_content_description">App-logo</string>
+    <string name="splash_tagline">Raad het jaar. Bouw de tijdlijn.</string>
+
+    <string name="game_title">Guessrhe Reagge</string>
+    <string name="game_subtitle">Hitster-stijl muziek trivia</string>
+    <string name="start_game">Start Spel</string>
+    <string name="settings">Instellingen</string>
+
+    <string name="navigate_back">Terug</string>
+
+    <string name="settings_card_account_audio">Account &amp; Audio</string>
+    <string name="settings_card_game_options">Spelregels</string>
+    <string name="settings_card_language_info">Taal &amp; Info</string>
+
+    <string name="settings_youtube_music">YouTube Music Account</string>
+    <string name="settings_youtube_music_description">Verbind je YouTube Music Premium-account om afspeellijsten te streamen binnen de app.</string>
+    <string name="settings_connect_youtube">Verbinden met YouTube Music</string>
+    <string name="settings_login_title">Inloggen bij YouTube Music</string>
+    <string name="settings_login_description">Voer je Google-accountgegevens in om je YouTube Music Premium-account te koppelen.</string>
+    <string name="settings_username_label">Gebruikersnaam of e-mail</string>
+    <string name="settings_password_label">Wachtwoord</string>
+    <string name="settings_login_confirm">Inloggen</string>
+    <string name="settings_login_cancel">Annuleren</string>
+    <string name="settings_show_password">Wachtwoord tonen</string>
+    <string name="settings_hide_password">Wachtwoord verbergen</string>
+    <string name="settings_connected">Verbonden</string>
+    <string name="settings_disconnect">Verbreken</string>
+    <string name="settings_volume">Volume</string>
+    <string name="settings_game_preferences">Spelvoorkeuren</string>
+    <string name="settings_game_options">Spelopties</string>
+    <string name="settings_rounds_label">Aantal rondes: %1$d</string>
+    <string name="settings_rounds_endless_label">Modus: Endeloos</string>
+    <string name="settings_rounds_preset_label">Rondes per spel</string>
+    <string name="settings_rounds_endless">Endeloos</string>
+    <string name="settings_genres_label">Muziekgenres</string>
+    <string name="settings_guess_timer">Raad-timer (optioneel)</string>
+    <string name="settings_guess_timer_description">Voeg een countdown per beurt toe voor extra spanning.</string>
+    <string name="settings_guess_timer_duration">Tijdslimiet</string>
+    <string name="settings_timer_seconds">%1$d sec</string>
+    <string name="settings_pre_roll">Audio pre-roll cache</string>
+    <string name="settings_pre_roll_description">Buffer het volgende nummer tijdens het raden voor naadloze overgangen.</string>
+    <string name="settings_language">Taal</string>
+    <string name="settings_language_description">Kies je voorkeurstaal voor de app.</string>
+    <string name="language_dutch">Nederlands</string>
+    <string name="language_english">Engels</string>
+    <string name="language_french">Frans</string>
+    <string name="language_german">Duits</string>
+    <string name="settings_about_title">Het verhaal achter de game</string>
+    <string name="settings_about_story">Guessrhe Reagge combineert het tactiele plezier van bordspellen met digitale magie: custom QR-kaarten, verborgen metadata en streaming muzieksfeer. Geboren uit liefde voor echte spelavonden, reggae-energie en tech die opzij stapt zodat vrienden kunnen raden, lachen en de ultieme tijdlijn bouwen.</string>
+    <string name="settings_about_credits">Credits &amp; contact</string>
+    <string name="settings_github">GitHub / Portfolio</string>
+    <string name="settings_email">E-mail ons</string>
+    <string name="settings_about_github_url">https://github.com/soundstation</string>
+    <string name="settings_about_email">hello@guessrhereagge.app</string>
+
+    <string name="game_title_short">Spel</string>
+    <string name="game_round_progress">Ronde %1$d / %2$d</string>
+    <string name="game_round_endless">Ronde %1$d / ∞</string>
+    <string name="game_loading">Nummers laden…</string>
+    <string name="game_guess_prompt">In welk jaar kwam dit nummer uit?</string>
+    <string name="game_status_loading">Laden…</string>
+    <string name="game_status_playing">Nu aan het spelen</string>
+    <string name="game_status_paused">Gepauzeerd</string>
+    <string name="game_status_error">Afspeelfout</string>
+    <string name="game_status_ready">Druk op play</string>
+    <string name="game_play_pause">Afspelen / Pauzeren</string>
+    <string name="game_retry">Opnieuw proberen</string>
+    <string name="game_reveal">Onthul nummer</string>
+    <string name="game_next_round">Volgende ronde</string>
+    <string name="game_finish">Spel beëindigen</string>
+    <string name="game_release_year_label">Uitgavejaar</string>
+    <string name="game_finished">Goed gespeeld! Alle rondes voltooid.</string>
+    <string name="game_back_to_menu">Terug naar menu</string>
+
+    <string name="cast_controller_title">TV-controller</string>
+    <string name="cast_controller_subtitle">Gameplay staat op je TV. Gebruik de knoppen hieronder om het spel te bedienen.</string>
+    <string name="cast_touchpad_hint">Touchpad-gebied</string>
+    <string name="cast_disconnected_message">Cast-verbinding verbroken. Spel gepauzeerd.</string>
+    <string name="cast_button_description">Cast naar TV</string>
+    <string name="cast_unavailable">Google Cast is niet beschikbaar op dit apparaat.</string>
+    <string name="cast_custom_receiver_required">Om de game op TV te tonen: registreer een Custom Cast Receiver (zie cast-receiver/index.html) en stel je App ID in via cast_app_id.</string>
+
+    <string name="genre_pop">Pop</string>
+    <string name="genre_rock">Rock</string>
+    <string name="genre_hip_hop">Hip-Hop</string>
+    <string name="genre_electronic">Elektronisch</string>
+    <string name="genre_jazz">Jazz</string>
+    <string name="genre_reggae">Reggae</string>
+
+    <string name="error_auth_username">Vul je gebruikersnaam of e-mailadres in.</string>
+    <string name="error_auth_password">Vul je wachtwoord in.</string>
+    <string name="error_auth_invalid_password">Onjuist wachtwoord. Probeer het opnieuw.</string>
+    <string name="error_youtube_not_connected">Verbind eerst je YouTube Music-account in Instellingen.</string>
+    <string name="error_no_tracks">Geen nummers gevonden voor de geselecteerde genres.</string>
+    <string name="error_stream_resolution">Dit nummer kon niet geladen worden. Controleer je internetverbinding en probeer opnieuw.</string>
+</resources>

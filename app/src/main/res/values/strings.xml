@@ -1,0 +1,107 @@
+<resources>
+    <string name="app_name">Guessrhe Reagge</string>
+    <string name="app_logo_content_description">App logo</string>
+    <string name="splash_tagline">Guess the year. Build the timeline.</string>
+
+    <!-- Main Screen -->
+    <string name="game_title">Guessrhe Reagge</string>
+    <string name="game_subtitle">Hitster-style music trivia</string>
+    <string name="start_game">Start Game</string>
+    <string name="settings">Settings</string>
+
+    <!-- Navigation -->
+    <string name="navigate_back">Back</string>
+
+    <!-- Settings cards -->
+    <string name="settings_card_account_audio">Account &amp; Audio</string>
+    <string name="settings_card_game_options">Game Rules</string>
+    <string name="settings_card_language_info">Language &amp; Info</string>
+
+    <!-- Settings -->
+    <string name="settings_youtube_music">YouTube Music Account</string>
+    <string name="settings_youtube_music_description">Connect your YouTube Music Premium account to stream playlists inside the app.</string>
+    <string name="settings_connect_youtube">Connect YouTube Music</string>
+    <string name="settings_login_title">Sign in to YouTube Music</string>
+    <string name="settings_login_description">Enter your Google account details to link your YouTube Music Premium account.</string>
+    <string name="settings_username_label">Username or email</string>
+    <string name="settings_password_label">Password</string>
+    <string name="settings_login_confirm">Sign in</string>
+    <string name="settings_login_cancel">Cancel</string>
+    <string name="settings_show_password">Show password</string>
+    <string name="settings_hide_password">Hide password</string>
+    <string name="settings_connected">Connected</string>
+    <string name="settings_disconnect">Disconnect</string>
+    <string name="settings_volume">Volume</string>
+    <string name="settings_game_preferences">Game preferences</string>
+    <string name="settings_game_options">Game options</string>
+    <string name="settings_rounds_label">Number of rounds: %1$d</string>
+    <string name="settings_rounds_endless_label">Mode: Endless</string>
+    <string name="settings_rounds_preset_label">Rounds per game</string>
+    <string name="settings_rounds_endless">Endless</string>
+    <string name="settings_genres_label">Music genres</string>
+    <string name="settings_guess_timer">Guess timer (optional)</string>
+    <string name="settings_guess_timer_description">Add a countdown per turn for extra excitement.</string>
+    <string name="settings_guess_timer_duration">Time limit</string>
+    <string name="settings_timer_seconds">%1$d sec</string>
+    <string name="settings_pre_roll">Audio pre-roll cache</string>
+    <string name="settings_pre_roll_description">Pre-buffer the next track while guessing for seamless transitions.</string>
+    <string name="settings_language">Language</string>
+    <string name="settings_language_description">Choose your preferred app language.</string>
+    <string name="language_dutch">Dutch</string>
+    <string name="language_english">English</string>
+    <string name="language_french">French</string>
+    <string name="language_german">German</string>
+    <string name="settings_about_title">The story behind the game</string>
+    <string name="settings_about_story">Guessrhe Reagge blends the tactile joy of board games with digital magic: custom QR cards, hidden metadata, and streaming music vibes. Born from a love of real table-top nights, reggae energy, and tech that gets out of the way so friends can focus on guessing, laughing, and building the ultimate timeline.</string>
+    <string name="settings_about_credits">Credits &amp; contact</string>
+    <string name="settings_github">GitHub / Portfolio</string>
+    <string name="settings_email">Email us</string>
+    <string name="settings_about_github_url">https://github.com/soundstation</string>
+    <string name="settings_about_email">hello@guessrhereagge.app</string>
+
+    <!-- Game -->
+    <string name="game_title_short">Game</string>
+    <string name="game_round_progress">Round %1$d / %2$d</string>
+    <string name="game_round_endless">Round %1$d / ∞</string>
+    <string name="game_loading">Loading tracks…</string>
+    <string name="game_guess_prompt">Which year was this song released?</string>
+    <string name="game_status_loading">Loading…</string>
+    <string name="game_status_playing">Now playing</string>
+    <string name="game_status_paused">Paused</string>
+    <string name="game_status_error">Playback error</string>
+    <string name="game_status_ready">Tap play</string>
+    <string name="game_play_pause">Play / Pause</string>
+    <string name="game_retry">Try again</string>
+    <string name="game_reveal">Reveal track</string>
+    <string name="game_next_round">Next round</string>
+    <string name="game_finish">Finish game</string>
+    <string name="game_release_year_label">Release year</string>
+    <string name="game_finished">Well played! All rounds complete.</string>
+    <string name="game_back_to_menu">Back to menu</string>
+
+    <!-- Cast to TV -->
+    <!-- Cast: App ID is set via resValue in build.gradle.kts (override with CAST_APP_ID in gradle.properties) -->
+    <string name="cast_button_description">Cast to TV</string>
+    <string name="cast_controller_title">TV Controller</string>
+    <string name="cast_controller_subtitle">Gameplay is on your TV. Use the buttons below to control the game.</string>
+    <string name="cast_touchpad_hint">Touchpad area</string>
+    <string name="cast_disconnected_message">Cast connection lost. Game paused.</string>
+    <string name="cast_unavailable">Google Cast is not available on this device.</string>
+    <string name="cast_custom_receiver_required">To show the game on TV, register a Custom Cast Receiver (see cast-receiver/index.html) and set your App ID in cast_app_id.</string>
+
+    <!-- Genres -->
+    <string name="genre_pop">Pop</string>
+    <string name="genre_rock">Rock</string>
+    <string name="genre_hip_hop">Hip-Hop</string>
+    <string name="genre_electronic">Electronic</string>
+    <string name="genre_jazz">Jazz</string>
+    <string name="genre_reggae">Reggae</string>
+
+    <!-- Errors -->
+    <string name="error_auth_username">Enter your username or email address.</string>
+    <string name="error_auth_password">Enter your password.</string>
+    <string name="error_auth_invalid_password">Incorrect password. Please try again.</string>
+    <string name="error_youtube_not_connected">Connect your YouTube Music account in Settings first.</string>
+    <string name="error_no_tracks">No tracks found for the selected genres.</string>
+    <string name="error_stream_resolution">Could not load this song. Check your internet connection and try again.</string>
+</resources>
