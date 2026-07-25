@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Guess the song — Cast Receiver</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 100%; height: 100%; overflow: hidden;
+      background: #0A0E2A; color: #F0F4FF;
+      font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    .viewport {
+      width: 100vw; height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      background:
+        radial-gradient(ellipse at 20% 15%, rgba(0,255,255,0.18) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 85%, rgba(255,0,255,0.16) 0%, transparent 55%),
+        linear-gradient(180deg, #0A0E2A 0%, #121632 55%, #000000 100%);
+    }
+    .frame {
+      width: min(100vw, calc(100vh * 16 / 9));
+      height: min(100vh, calc(100vw * 9 / 16));
+      padding: 3vh 4vw;
+      display: flex; flex-direction: column;
+    }
+    .header { text-align: center; margin-bottom: 1.5vh; }
+    .header h1 {
+      color: #00FFFF; font-size: clamp(1.2rem, 2.5vw, 2rem);
+      letter-spacing: 0.06em; text-shadow: 0 0 18px rgba(0,255,255,0.55);
+    }
+    .round {
+      color: #FF00FF; font-size: clamp(1rem, 2vw, 1.5rem); margin-top: 0.5vh;
+      text-shadow: 0 0 12px rgba(255,0,255,0.45);
+    }
+    .genres { color: rgba(255,215,0,0.9); font-size: clamp(0.85rem, 1.6vw, 1.1rem); margin-top: 0.4vh; }
+    .track-genre { color: #00FFFF; font-size: clamp(0.9rem, 1.7vw, 1.15rem); margin-bottom: 1vh; font-weight: 700; }
+    .timer {
+      color: #FFD700; font-size: clamp(1rem, 2vw, 1.35rem); margin-bottom: 1.2vh;
+      text-shadow: 0 0 10px rgba(255,215,0,0.4);
+    }
+    .progress-track {
+      height: 8px; background: rgba(0,255,255,0.15);
+      border-radius: 4px; overflow: hidden; margin: 1.2vh 0 2.5vh;
+    }
+    .progress-fill {
+      height: 100%; width: 0%;
+      background: linear-gradient(90deg, #00FFFF, #FF00FF);
+      border-radius: 4px; transition: width 0.4s ease;
+      box-shadow: 0 0 12px rgba(0,255,255,0.45);
+    }
+    .content {
+      flex: 1; display: flex; align-items: center; justify-content: center;
+    }
+    .card {
+      background: rgba(17,17,17,0.78);
+      border: 1px solid rgba(0,255,255,0.28);
+      border-radius: 24px;
+      padding: 4vh 5vw;
+      width: 100%; max-width: 900px;
+      text-align: center;
+      box-shadow: 0 0 40px rgba(255,0,255,0.18), 0 0 28px rgba(0,255,255,0.12);
+    }
+    .vinyl-wrap { display: flex; justify-content: center; margin-bottom: 2.5vh; }
+    .vinyl {
+      width: clamp(120px, 22vw, 220px);
+      height: clamp(120px, 22vw, 220px);
+      border-radius: 50%;
+      background: radial-gradient(circle at 50% 50%, #222 0%, #111 40%, #000 100%);
+      border: 3px solid rgba(0,255,255,0.35);
+      position: relative;
+      animation: spin 4s linear infinite;
+      animation-play-state: paused;
+      box-shadow: 0 0 30px rgba(0,255,255,0.25);
+    }
+    .vinyl.playing { animation-play-state: running; }
+    .vinyl::after {
+      content: ""; position: absolute; inset: 38%;
+      border-radius: 50%; background: #FFD700;
+      box-shadow: 0 0 16px rgba(255,215,0,0.55);
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .waveform {
+      display: flex; align-items: flex-end; justify-content: center;
+      gap: 6px; height: 48px; margin-bottom: 2.5vh;
+    }
+    .bar {
+      width: 8px; background: linear-gradient(180deg, #00FFFF, #FF00FF);
+      border-radius: 4px;
+      animation: wave 0.8s ease-in-out infinite alternate;
+      animation-play-state: paused;
+    }
+    .waveform.active .bar { animation-play-state: running; }
+    .bar:nth-child(1) { height: 20px; animation-delay: 0s; }
+    .bar:nth-child(2) { height: 36px; animation-delay: 0.1s; }
+    .bar:nth-child(3) { height: 28px; animation-delay: 0.2s; }
+    .bar:nth-child(4) { height: 44px; animation-delay: 0.15s; }
+    .bar:nth-child(5) { height: 24px; animation-delay: 0.05s; }
+    .bar:nth-child(6) { height: 38px; animation-delay: 0.25s; }
+    .bar:nth-child(7) { height: 30px; animation-delay: 0.12s; }
+    @keyframes wave { from { transform: scaleY(0.5); } to { transform: scaleY(1.2); } }
+    .prompt {
+      font-size: clamp(1.4rem, 3vw, 2.4rem);
+      font-weight: 800; line-height: 1.25; margin-bottom: 1.2vh;
+      color: #00FFFF; text-shadow: 0 0 18px rgba(0,255,255,0.45);
+    }
+    .status { color: #FFD700; font-size: clamp(1rem, 2vw, 1.4rem); }
+    .track-title {
+      font-size: clamp(1.4rem, 3vw, 2.2rem);
+      font-weight: 800; margin-bottom: 1vh; color: #F0F4FF;
+    }
+    .track-artist { font-size: clamp(1.1rem, 2.2vw, 1.6rem); opacity: 0.9; }
+    .year {
+      font-size: clamp(3rem, 8vw, 5rem);
+      color: #00FFFF; font-weight: 900; margin: 2vh 0 1vh;
+      text-shadow: 0 0 24px rgba(0,255,255,0.5);
+    }
+    .year-label { color: rgba(255,215,0,0.85); font-size: clamp(0.9rem, 1.8vw, 1.2rem); }
+    .loading-spinner {
+      width: 64px; height: 64px; border: 6px solid rgba(0,255,255,0.2);
+      border-top-color: #FF00FF; border-radius: 50%;
+      animation: spin 1s linear infinite; margin: 0 auto 2vh;
+    }
+    .error { color: #FF4422; margin-top: 2vh; font-size: 1.1rem; }
+    .waiting {
+      color: rgba(240,244,255,0.75); font-size: 1.2rem; text-align: center;
+    }
+    /* Keep CAF media player for TV audio, but hide its default UI */
+    cast-media-player {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      opacity: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+  </style>
+</head>
+<body>
+  <cast-media-player></cast-media-player>
+  <div class="viewport">
+    <div class="frame" id="root">
+      <div class="waiting">Waiting for game from your phone…</div>
+    </div>
+  </div>
+
+  <script src="https://www.gstatic.com/cast/sdk/libs/caf_receiver/v3/cast_receiver_framework.js"></script>
+  <script>
+    const NAMESPACE = 'urn:x-cast:com.soundstation.guessthesong.gamestate';
+    const root = document.getElementById('root');
+    let playerManager = null;
+    let currentStreamUrl = null;
+    let lastPlaybackCommand = null;
+
+    function contentTypeFor(url) {
+      const lower = (url || '').toLowerCase();
+      if (lower.includes('m3u8') || lower.includes('hls')) return 'application/x-mpegURL';
+      if (lower.includes('mpd') || lower.includes('dash')) return 'application/dash+xml';
+      if (lower.includes('webm')) return 'audio/webm';
+      return 'audio/mp4';
+    }
+
+    function syncReceiverAudio(state) {
+      if (!playerManager) return;
+      const url = state.streamUrl;
+      if (!url) {
+        if (state.playbackState === 'PAUSED' || state.playbackState === 'STOPPED' || state.phase === 'FINISHED') {
+          try { playerManager.stop(); } catch (e) {}
+          currentStreamUrl = null;
+          lastPlaybackCommand = 'stop';
+        }
+        return;
+      }
+
+      const shouldPlay = state.playbackState === 'PLAYING';
+      if (url !== currentStreamUrl) {
+        currentStreamUrl = url;
+        const mediaInfo = new cast.framework.messages.MediaInformation();
+        mediaInfo.contentId = url;
+        mediaInfo.contentUrl = url;
+        mediaInfo.streamType = cast.framework.messages.StreamType.BUFFERED;
+        mediaInfo.contentType = contentTypeFor(url);
+        mediaInfo.metadata = new cast.framework.messages.MusicTrackMediaMetadata();
+        mediaInfo.metadata.title = state.isMetadataRevealed
+          ? (state.trackTitle || 'Guess the song')
+          : 'Guess the song';
+
+        const request = new cast.framework.messages.LoadRequestData();
+        request.media = mediaInfo;
+        request.autoplay = shouldPlay;
+        request.currentTime = 0;
+        playerManager.load(request).then(() => {
+          lastPlaybackCommand = shouldPlay ? 'play' : 'pause';
+        }).catch((err) => console.warn('Receiver media load failed', err));
+        return;
+      }
+
+      if (shouldPlay && lastPlaybackCommand !== 'play') {
+        playerManager.play();
+        lastPlaybackCommand = 'play';
+      } else if (!shouldPlay && lastPlaybackCommand !== 'pause' && lastPlaybackCommand !== 'stop') {
+        playerManager.pause();
+        lastPlaybackCommand = 'pause';
+      }
+    }
+
+    function showBootScreen() {
+      root.innerHTML = `
+        <div class="content"><div class="card">
+          <div class="prompt">Guess the song</div>
+          <div class="waiting">Cast receiver ready — waiting for your phone…</div>
+        </div></div>`;
+    }
+
+    function showError(message) {
+      root.innerHTML = `<div class="content"><div class="card"><div class="error">${message}</div></div></div>`;
+    }
+
+    window.addEventListener('error', (event) => {
+      showError('Receiver error: ' + (event.message || 'unknown'));
+    });
+
+    showBootScreen();
+
+    function formatRound(state) {
+      const labels = state.labels || {};
+      if (state.isEndless) {
+        return (labels.roundEndless || 'Round %1$d / ∞').replace('%1$d', state.currentRound);
+      }
+      if (state.totalRounds > 0) {
+        return (labels.roundProgress || 'Round %1$d / %2$d')
+          .replace('%1$d', state.currentRound)
+          .replace('%2$d', state.totalRounds);
+      }
+      return labels.appTitle || 'Guess the song';
+    }
+
+    function playbackLabel(state) {
+      const map = {
+        LOADING: state.labels?.statusLoading,
+        PLAYING: state.labels?.statusPlaying,
+        PAUSED: state.labels?.statusPaused,
+        ERROR: state.labels?.statusError,
+        IDLE: state.labels?.statusReady,
+        STOPPED: state.labels?.statusReady,
+      };
+      return map[state.playbackState] || state.labels?.statusReady || '';
+    }
+
+    function renderIdle(state) {
+      root.innerHTML = `
+        <div class="content"><div class="card">
+          <div class="prompt">${state.labels?.appTitle || 'Guess the song'}</div>
+          <div class="waiting">${state.labels?.idlePrompt || 'Start the game on your phone to play on TV.'}</div>
+        </div></div>`;
+    }
+
+    function renderLoading(state) {
+      root.innerHTML = `
+        <div class="content"><div class="card">
+          <div class="loading-spinner"></div>
+          <div class="status">${state.labels?.loading || 'Loading…'}</div>
+        </div></div>`;
+    }
+
+    function renderFinished(state) {
+      root.innerHTML = `
+        <div class="content"><div class="card">
+          <div class="prompt">${state.errorMessage || state.labels?.finished || 'Game finished'}</div>
+        </div></div>`;
+    }
+
+    function headerBlock(state) {
+      const genres = state.activeGenresLabel
+        ? `<div class="genres">${state.activeGenresLabel}</div>` : '';
+      return `<div class="header"><h1>${state.labels?.appTitle || ''}</h1>
+        <div class="round">${formatRound(state)}</div>${genres}</div>`;
+    }
+
+    function renderPlaying(state) {
+      const isPlaying = state.playbackState === 'PLAYING';
+      const progress = Math.round((state.progress || 0) * 100);
+
+      if (state.isMetadataRevealed) {
+        const trackGenre = state.trackGenreLabel
+          ? `<div class="track-genre">${state.trackGenreLabel}</div>` : '';
+        root.innerHTML = `
+          ${headerBlock(state)}
+          <div class="progress-track"><div class="progress-fill" style="width:${progress}%"></div></div>
+          <div class="content"><div class="card">
+            ${trackGenre}
+            <div class="track-title">${state.trackTitle || '—'}</div>
+            <div class="track-artist">${state.trackArtist || '—'}</div>
+            <div class="year">${state.releaseYear || '—'}</div>
+            <div class="year-label">${state.labels?.releaseYearLabel || 'Release year'}</div>
+          </div></div>`;
+        return;
+      }
+
+      const trackGenre = state.trackGenreLabel
+        ? `<div class="track-genre">${state.trackGenreLabel}</div>` : '';
+      const timer = state.guessTimerSecondsRemaining != null
+        ? `<div class="timer">${(state.labels?.timerRemaining || 'Time left: %1$d sec').replace('%1$d', state.guessTimerSecondsRemaining)}</div>`
+        : '';
+      root.innerHTML = `
+        ${headerBlock(state)}
+        <div class="progress-track"><div class="progress-fill" style="width:${progress}%"></div></div>
+        <div class="content"><div class="card">
+          ${trackGenre}
+          ${timer}
+          <div class="vinyl-wrap"><div class="vinyl ${isPlaying ? 'playing' : ''}"></div></div>
+          <div class="waveform ${isPlaying ? 'active' : ''}">
+            <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+            <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+          </div>
+          <div class="prompt">${state.labels?.guessPrompt || 'Which year was this song released?'}</div>
+          <div class="status">${playbackLabel(state)}</div>
+          ${state.errorMessage ? `<div class="error">${state.errorMessage}</div>` : ''}
+        </div></div>`;
+    }
+
+    function renderGame(raw) {
+      try {
+        const state = typeof raw === 'string' ? JSON.parse(raw) : raw;
+        syncReceiverAudio(state);
+        if (state.phase === 'IDLE') return renderIdle(state);
+        if (state.phase === 'LOADING') return renderLoading(state);
+        if (state.phase === 'FINISHED') return renderFinished(state);
+        return renderPlaying(state);
+      } catch (e) {
+        console.error('Render error', e);
+      }
+    }
+
+    try {
+      const context = cast.framework.CastReceiverContext.getInstance();
+      playerManager = context.getPlayerManager();
+
+      // Accept LOAD commands from the phone's RemoteMediaClient.
+      playerManager.setMessageInterceptor(
+        cast.framework.messages.MessageType.LOAD,
+        (loadRequestData) => loadRequestData,
+      );
+
+      const options = new cast.framework.CastReceiverOptions();
+      options.disableIdleTimeout = true;
+      options.customNamespaces = Object.assign({}, options.customNamespaces, {
+        [NAMESPACE]: cast.framework.system.MessageType.JSON,
+      });
+
+      context.addCustomMessageListener(NAMESPACE, (event) => {
+        renderGame(event.data);
+      });
+      context.addEventListener(
+        cast.framework.system.EventType.SENDER_CONNECTED,
+        () => {
+          root.innerHTML = '<div class="waiting">Phone connected — start the game on your phone…</div>';
+        },
+      );
+      context.start(options);
+    } catch (error) {
+      showError('Failed to start Cast receiver: ' + error);
+    }
+  </script>
+</body>
+</html>
